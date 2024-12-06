@@ -134,14 +134,14 @@ def main():
 
     df_recente = pd.read_excel(recent_files[0])
     caminho_salvar_recente = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "Retoma Meoo.xlsx"
+        os.path.dirname(os.path.abspath(__file__)), "..", "data", "Retoma Meoo.xlsx"
     )
     df_recente.to_excel(caminho_salvar_recente, index=False)
     print(f"Arquivo mais recente salvo em: {caminho_salvar_recente}")
     df_recente_ajustado = ajustar_coluna_atribuicao_retoma_meoo(caminho_salvar_recente)
     df_anterior = pd.read_excel(recent_files[1])
     caminho_salvar_anterior = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "Retoma Meoo_Previous.xlsx"
+        os.path.dirname(os.path.abspath(__file__)), "..", "data", "Retoma Meoo_Previous.xlsx"
     )
     df_anterior.to_excel(caminho_salvar_anterior, index=False)
     print(f"Segundo arquivo mais recente salvo em: {caminho_salvar_anterior}")
@@ -154,7 +154,7 @@ def main():
     df_info_cliente = ajustar_coluna_atribuicao(arquivo_info_cliente)
 
     caminho_salvar_clientes = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "Clientes.xlsx"
+        os.path.dirname(os.path.abspath(__file__)), "..", "data", "Clientes.xlsx"
     )
     df_info_cliente.to_excel(caminho_salvar_clientes, index=False)
     print(
