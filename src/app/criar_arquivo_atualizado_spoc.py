@@ -2,20 +2,25 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 from criar_arquivo_atualizado_meoo import getpass
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Defina suas credenciais
-token_url = 'https://api.getrak.com/newkoauth/oauth/token'
-client_id = 'localiza_spoc'
-client_secret = 'VoN5clM2N2Xh'
-username = 'luiz.demetrio@localiza_spoc'
-password = 'Fechado5849@'
+token_url = os.getenv("TOKEN_URL")  
+client_id = os.getenv('client_id')
+client_secret = os.getenv('client_secret')
+login = os.getenv('login')
+password = os.getenv('password')
+
 user = getpass.getuser()
 
 
 # Prepare os dados para a requisição
 data = {
     'grant_type': 'password',
-    'username': username,
+    'username': login,
     'password': password
 }
 
@@ -28,7 +33,7 @@ if response.status_code == 200:
     print('Token de Acesso:', access_token)
 
     # Defina o endpoint que deseja acessar
-    api_url = 'https://api.getrak.com/v1/spoc-internal/recovery-cases'
+    api_url = os.getenv('api_url')
 
     # Faça a requisição à API utilizando o token de acesso
     headers = {
