@@ -63,8 +63,14 @@ else:
 base_dir = Path(
     rf"C:\Users\{user}\OneDrive - NEXCORP SER. TELECOMUNICAÇÕES S.A\Área de Trabalho\prog\automacao_pendente"
 )
+clientes_path = base_dir / "spoc_atualizador.xlsm"
 retoma_meoo_path = base_dir / "Pendências Meoo LL Getrak.xlsx"
-
+# Diretório de origem e destino
+diretorio_origem = base_dir / "download"
+diretorio_destino = Path(
+    rf"C:\Users\{user}\OneDrive - NEXCORP SER. TELECOMUNICAÇÕES S.A\Área de Trabalho\prog\workspace\luizgdemetrio\projeto_cobranca\src\data"
+)
+nome_base_arquivo = "Pendências Meoo LL Getrak"
 
 def copiar_e_renomear_arquivo(diretorio_origem, diretorio_destino, nome_base_arquivo):
     """
@@ -93,15 +99,6 @@ def copiar_e_renomear_arquivo(diretorio_origem, diretorio_destino, nome_base_arq
     # Copiar e renomear o arquivo
     shutil.copy2(arquivo_mais_recente, novo_caminho_arquivo)
     print(f"Arquivo {arquivo_mais_recente} copiado para {novo_caminho_arquivo} com sucesso.")
-
-
-
-# Diretório de origem e destino
-
-
-diretorio_origem = base_dir / "download"
-diretorio_destino = base_dir
-nome_base_arquivo = "Pendências Meoo LL Getrak"
 
 
 copiar_e_renomear_arquivo(diretorio_origem, diretorio_destino, nome_base_arquivo)
