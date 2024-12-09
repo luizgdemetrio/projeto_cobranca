@@ -4,6 +4,9 @@ import json
 from criar_arquivo_atualizado_meoo import getpass
 from dotenv import load_dotenv
 import os
+import shutil
+from pathlib import Path
+
 
 load_dotenv()
 
@@ -55,3 +58,49 @@ if response.status_code == 200:
         print('Erro ao acessar a API:', api_response.json())
 else:
     print('Erro ao obter token:', response.json())
+
+# Caminhos dos arquivos usando pathlib e o nome do usuário atual
+base_dir = Path(
+    rf"C:\Users\{user}\OneDrive - NEXCORP SER. TELECOMUNICAÇÕES S.A\Área de Trabalho\prog\automacao_pendente"
+)
+retoma_meoo_path = base_dir / "Pendências Meoo LL Getrak.xlsx"
+
+
+def copiar_e_renomear_arquivo(diretorio_origem, diretorio_destino, nome_base_arquivo):
+    """
+    Procura o arquivo mais recente com base no nome base, copia e renomeia-o, removendo a data.
+
+    Args:
+        diretorio_origem (Path): Diretório onde os arquivos estão localizados.
+        diretorio_destino (Path): Diretório para onde o arquivo será copiado.
+        nome_base_arquivo (str): Nome base do arquivo (sem a data).
+    """
+    # Listar todos os arquivos no diretório de origem que começam com o nome base
+    arquivos = list(diretorio_origem.glob(f"{nome_base_arquivo}*"))
+
+    # Verificar se há arquivos correspondentes
+    if not arquivos:
+        print("Nenhum arquivo encontrado.")
+        return
+
+    # Encontrar o arquivo mais recente
+    arquivo_mais_recente = max(arquivos, key=lambda x: x.stat().st_mtime)
+
+    # Definir o caminho do novo arquivo (sem a data)
+    novo_nome_arquivo = f"{nome_base_arquivo}.xlsx"
+    novo_caminho_arquivo = diretorio_destino / novo_nome_arquivo
+
+    # Copiar e renomear o arquivo
+    shutil.copy2(arquivo_mais_recente, novo_caminho_arquivo)
+    print(f"Arquivo {arquivo_mais_recente} copiado para {novo_caminho_arquivo} com sucesso.")
+
+
+
+# Diretório de origem e destino
+
+
+diretorio_origem = base_dir / "download"
+diretorio_destino = base_dir
+nome_base_arquivo = "Pendências Meoo LL Getrak"
+
+copiar_e_renomear_arquivo(diretorio_origem, diretorio_destino, nome_base_arquivo)
